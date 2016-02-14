@@ -8,25 +8,26 @@ This plugin will encapsulate all that cumbersome interaction and give you a conv
 ##Getting Started
 
 1. Include plugin script
-  ```html
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="path/to/allUpload.js"></script>
-  ```
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="path/to/allUpload.js"></script>
+```
+
 2. Trigger to choose and upload a file from disk
-  ```javascript
-  $.allUpload({
-    targetURL: url,
-    fileParamName: 'data',
-    acceptStr: 'image/*',
-  }).progress(function(){
-    // file has been picked and upload is started; trigger uploading gif
-  }).done(function(resp){
-    // do cool things with uploaded file
-  }
-  }).fail(function(resp){
-    // notify user of failure
-  });
-  ```
+```javascript
+$.allUpload({
+  targetURL: url,
+  fileParamName: 'data',
+  acceptStr: 'image/*',
+}).progress(function(){
+  // file has been picked and upload is started; trigger uploading gif
+}).done(function(resp){
+  // do cool things with uploaded file
+}
+}).fail(function(resp){
+  // notify user of failure
+});
+```
 
 ##Options
 | Name | Default | Description |
