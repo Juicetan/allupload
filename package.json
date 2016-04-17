@@ -1,0 +1,26 @@
+{
+  "name": "allupload",
+  "version": "0.0.1",
+  "description": "A jQuery plugin to help facilitate file upload in a simple black-box manner.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juicetan",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Juicetan/allupload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Juicetan/allupload/issues"
+  },
+  "homepage": "https://github.com/Juicetan/allupload",
+  "dependencies": {
+    "jquery": "^2.2.3"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "res/"
+  ]
+}
