@@ -23,6 +23,12 @@ This plugin will encapsulate all that cumbersome interaction and give you a conv
     // file has been picked and upload is started; trigger uploading gif
   }).done(function(resp){
     // do cool things with uploaded file
+    // if api outputs JSON
+    try {
+      resp = $.parseJSON(resp.find('body').text());
+    } catch(exception) {
+      // invalid JSON
+    }
   }).fail(function(resp){
     // notify user of failure
   });
