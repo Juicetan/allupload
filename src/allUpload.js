@@ -79,7 +79,7 @@
     });
     $('body').append($iframe);
 
-    $iframe.load(function(){
+    $iframe.on('load',function(){
       var frameSrc = $(this).contents()[0].location.href;
       if(frameSrc === 'about:blank'){
         return false;
