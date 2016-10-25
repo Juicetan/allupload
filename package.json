@@ -1,6 +1,6 @@
 {
   "name": "allupload",
-  "version": "0.0.1",
+  "version": "0.2.1",
   "description": "A jQuery plugin to help facilitate file upload in a simple black-box manner.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,7 +20,7 @@
   },
   "files": [
     "index.js",
-    "lib/",
+    "src/",
     "res/"
   ]
 }
