@@ -1,4 +1,4 @@
-;(function(window,document,Math,$,undefined){
+;(function(window,document,Math,undefined){
   var guid = function(){
     var s4 = function(){
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -19,17 +19,16 @@
     multipleSelect: false
   };
 
-  var addArgsToForm = function($form,argsObj){
+  var addArgsToForm = function(form,argsObj){
     var keys = Object.keys(argsObj);
 
     for(var i = 0; i < keys.length; i++){
-      var $input = $("<input>",{
-        id: keys[i],
-        name: keys[i],
-        value: argsObj[keys[i]],
-        type: 'hidden',
-      });
-      $form.append($input);
+      var input = document.createElement('input');
+      input.setAttribute('id',keys[i]);
+      input.setAttribute('name',keys[i]);
+      input.setAttribute('value',argsObj[keys[i]]);
+      input.setAttribute('type','hidden');
+      form.appendChild(input);
     }
   };
 
@@ -150,4 +149,4 @@
 
     return def.promise();
   };
-})(window,document,Math,jQuery);
+})(window,document,Math);
