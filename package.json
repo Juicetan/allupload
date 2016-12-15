@@ -1,7 +1,7 @@
 {
   "name": "allupload",
-  "version": "0.2.1",
-  "description": "A jQuery plugin to help facilitate file upload in a simple black-box manner.",
+  "version": "1.0.0",
+  "description": "A vanilla JavaScript plugin to help facilitate file upload in a simple black-box manner.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
