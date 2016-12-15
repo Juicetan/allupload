@@ -83,8 +83,8 @@
     fileInput.setAttribute('accept',acceptStr);
     fileInput.setAttribute('multiple',multipleSelect); 
     fileInput.addEventListener('change',function(){
-      if(input.value.length){
-        def.resolve(input.value);
+      if(fileInput.value.length){
+        def.resolve(fileInput.value);
       } else{
         def.reject();
       }
@@ -151,13 +151,16 @@
     var iframe = iframeObj.el;
     var responsePromise = iframeObj.responsePromise;
 
-    var clickEvt = new Event('click');
-    form.querySelector('input[type="file"]').dispatchEvent(clickEvt);
+    form.querySelector('input[type="file"]').click();
 
     fileChangePromise
-      .then(function(){
-        $iframe.contents().find('body').append($form);
-        $iframe.contents().find('form').submit();
+      .then(function(value){
+        if(options.onfilechange && typeof options.onfilechange === 'function'){
+          options.onfilechange(value);
+        }
+        var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDocument.body.appendChild(form);
+        iframeDocument.querySelector('form').submit();
 
         //hacky IE fix to compensate for the lack of
         //iframe load event;
@@ -167,19 +170,22 @@
           }
         },options.uploadTimeout);
       }).catch(function(){
-        cleanupIframe($iframe);
+        if(options.onfilechange && typeof options.onfilechange === 'function'){
+          options.onfilechange(false);
+        }
+        cleanupIframe(iframe);
         def.reject();
       });
 
     responsePromise
-      .done(function(resp){
+      .then(function(resp){
         def.resolve(resp);
-      }).fail(function(resp){
+      }).catch(function(resp){
         console.error('> file upload error',resp);
         def.reject();
-      }).always(function(){
+      }).then(function(){
         finished = true;
-        cleanupIframe($iframe);
+        cleanupIframe(iframe);
       });
 
     return def.promise;
