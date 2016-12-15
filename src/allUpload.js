@@ -42,6 +42,7 @@
 
   var defaults = {
     acceptStr:'*',
+    captureType: '',
     fileParamName:'file',
     formArgs:{},
     targetURL:'',
@@ -66,7 +67,7 @@
     $iframe.remove();
   };
 
-  var setupForm = function(url,fileParamName,args,acceptStr,multipleSelect){
+  var setupForm = function(url,fileParamName,args,acceptStr,multipleSelect,captureType){
     var def = new Deferred();
     var form = document.createElement('form');
     form.setAttribute('action',url);
@@ -82,6 +83,9 @@
     fileInput.setAttribute('value','');
     fileInput.setAttribute('accept',acceptStr);
     fileInput.setAttribute('multiple',multipleSelect); 
+    if(captureType){
+      fileInput.setAttribute('capture',captureType); 
+    }
     fileInput.addEventListener('change',function(){
       if(fileInput.value.length){
         def.resolve(fileInput.value);
@@ -143,7 +147,8 @@
       options.fileParamName,
       options.formArgs,
       options.acceptStr,
-      options.multipleSelect);
+      options.multipleSelect,
+      options.captureType);
     var form = formObj.el;
     var fileChangePromise = formObj.fileChangePromise;
 
