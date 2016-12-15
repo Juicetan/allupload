@@ -1,35 +1,53 @@
 # allupload
-A jQuery plugin to help facilitate file upload in a simple black-box manner.
+A vanilla JavaScript plugin to help facilitate file upload in a simple black-box manner.
 
 We're all too familiar with having to perform multipart/form-data file uploads.  If you really want to build something cool, you'll want to do it asynchronously, trigger it with a custom button, and show a fancy loading gif while doing it.  This requires a hidden `input` element, `form`, and `iframe` that will perform that actual `POST`.  I hated implementing this interaction over and over again.
 
-This plugin will encapsulate all that cumbersome interaction and give you a convenient and easy to use API to fire and forget a file upload request.  It also utilizes promises so you can easily hook into and react to changes in the upload state.  For instance, you can react to file upload success, failure, and even when a file has been chosen to upload.
+This plugin will encapsulate all that cumbersome interaction and give you a convenient and easy to use API to fire and forget a file upload request.  It also utilizes native ES6 Promises so you can easily hook into and react to changes in the upload state.  For instance, you can react to file upload success, failure, and even when a file has been chosen to upload.
+
+## Compatibility
+
+To align with current standards this plugin utilizes the new [ES6 Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) [(spec)]
+
+To maintain compatibility until all browsers catch up, it is recommended to include the polyfill below by default.
+
+* Promise Polyfill: [stefanpenner/es6-promise](https://github.com/stefanpenner/es6-promise)
 
 ##Getting Started
 
+1. Fetch the plugin
+
+  The plugin is available using the [Node Package Manager(npm)](https://www.npmjs.com/package/allupload)
+    ```shell
+    $ npm install allupload --save
+    ```
+
 1. Include plugin script
+  
   ```html
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="path/to/allUpload.js"></script>
+  <script src="node_modules/allupload/src/allUpload.js"></script>
   ```
 
 2. Trigger to choose and upload a file from disk
+
   ```javascript
-  $.allUpload({
+  allUpload({
     targetURL: url,
     fileParamName: 'data',
     acceptStr: 'image/*',
-  }).progress(function(){
-    // file has been picked and upload is started; trigger uploading gif
-  }).done(function(resp){
+    onfilechange: function(systemFilePath){
+      // file has been picked and upload is started; trigger uploading gif
+    }
+  }).then(function(resp){
     // do cool things with uploaded file
     // if api outputs JSON
     try {
-      resp = $.parseJSON(resp.find('body').text());
+      var body = resp.querySelector('body').innerHTML;
+      var json = JSON.parse(body);
     } catch(exception) {
       // invalid JSON
     }
-  }).fail(function(resp){
+  }).catch(function(resp){
     // notify user of failure
   });
   ```
@@ -43,3 +61,4 @@ This plugin will encapsulate all that cumbersome interaction and give you a conv
 | targetURL | '' | The respective API endpoint to upload the file |
 | uploadTimeout | 10500 | Timeout threshold for fileupload in milliseconds |
 | multipleSelect | false | Flag to enable multiple file selection in default OS file picker; note that server must support multiple file upload |
+| captureType | '' | HTML5 capture type that can be used to initiate camera image upload on mobile |
