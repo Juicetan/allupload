@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <h1>hohoho</h1>
+    <div class="btn">CLICK HERE</div>
+  </div>
+
+  <script src="src/allUpload.js"></script>
+  <script>
+    document.querySelector('.btn').addEventListener('click',function(){
+      console.log('> initiate file picker');
+      allUpload({
+        targetURL: 'https://file.io',
+        fileParamName: 'file',
+        acceptStr: 'image/*',
+        onfilechange: function(filepath){
+          if(filepath){
+            console.log('> file picked',filepath);
+          } else{
+            console.log('> file not picked');
+          }
+        }
+      }).then(function(resp){
+        var url = resp.querySelector('FileURL').innerHTML;
+        console.log('> uploaded file: ',url);
+      }).catch(function(e){
+        console.log('> upload failed: ',e);
+      });
+    });
+  </script>
+</body>
+</html>
