@@ -13,7 +13,7 @@ To maintain compatibility until all browsers catch up, it is recommended to incl
 
 * Promise Polyfill: [stefanpenner/es6-promise](https://github.com/stefanpenner/es6-promise)
 
-##Getting Started
+## Getting Started
 
 1. Fetch the plugin
 
@@ -52,7 +52,8 @@ To maintain compatibility until all browsers catch up, it is recommended to incl
   });
   ```
 
-##Options
+## Options
+
 | Name | Default | Description |
 | ---- | ------- | ----------- |
 | acceptStr | * | Accept string which will dictate the file type filter on the default OS file picker|
