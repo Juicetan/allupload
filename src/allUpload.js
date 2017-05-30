@@ -47,7 +47,8 @@
     formArgs:{},
     targetURL:'',
     uploadTimeout: 10500,
-    multipleSelect: false
+    multipleSelect: false,
+    isResponseInQueryString: false
   };
 
   var addArgsToForm = function(form,argsObj){
@@ -67,6 +68,18 @@
     $iframe.remove();
   };
 
+  var parseQueryString = function(qs) {
+    var pairs = qs.slice(1).split('&');
+
+    var result = {};
+    pairs.forEach(function(pair) {
+      pair = pair.split('=');
+      result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+
+    return JSON.parse(JSON.stringify(result));
+  };
+
   var setupForm = function(url,fileParamName,args,acceptStr,multipleSelect,captureType){
     var def = new Deferred();
     var form = document.createElement('form');
@@ -82,9 +95,9 @@
     fileInput.setAttribute('type','file');
     fileInput.setAttribute('value','');
     fileInput.setAttribute('accept',acceptStr);
-    fileInput.setAttribute('multiple',multipleSelect); 
+    fileInput.setAttribute('multiple',multipleSelect);
     if(captureType){
-      fileInput.setAttribute('capture',captureType); 
+      fileInput.setAttribute('capture',captureType);
     }
     fileInput.addEventListener('change',function(){
       if(fileInput.value.length){
@@ -102,7 +115,7 @@
     };
   };
 
-  var setupIframe = function(){
+  var setupIframe = function(isResponseInQueryString){
     var def = new Deferred();
     var iframe = document.createElement('iframe');
     iframe.setAttribute('id',guid());
@@ -123,7 +136,13 @@
       }
 
       var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-      var responseText = iframeDocument.children.length?iframeDocument.children[0]:"";
+
+      if(isResponseInQueryString && frameWindow.location.search) {
+        responseText = parseQueryString(frameWindow.location.search);
+      } else {
+        responseText = iframeDocument.children.length?iframeDocument.children[0]:"";
+      }
+
       if(responseText){
         def.resolve(responseText);
       } else{
@@ -152,7 +171,7 @@
     var form = formObj.el;
     var fileChangePromise = formObj.fileChangePromise;
 
-    var iframeObj = setupIframe();
+    var iframeObj = setupIframe(options.isResponseInQueryString);
     var iframe = iframeObj.el;
     var responsePromise = iframeObj.responsePromise;
 
