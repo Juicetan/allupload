@@ -26,7 +26,7 @@
           }
         }
       }).then(function(resp){
-        var url = resp.querySelector('FileURL').innerHTML;
+        var url = resp.querySelector('FileURL').innerText;
         console.log('> uploaded file: ',url);
       }).catch(function(e){
         console.log('> upload failed: ',e);
