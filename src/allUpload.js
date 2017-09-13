@@ -107,7 +107,7 @@
       }
     });
 
-    form.append(fileInput);
+    form.appendChild(fileInput);
 
     return {
       el: form,
