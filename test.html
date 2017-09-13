@@ -26,12 +26,13 @@
           }
         }
       }).then(function(resp){
-        var url = resp.querySelector('FileURL').innerText;
+        var url = JSON.parse(resp.innerText).link;
         console.log('> uploaded file: ',url);
       }).catch(function(e){
         console.log('> upload failed: ',e);
       });
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
 </body>
 </html>
