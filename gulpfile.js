@@ -19,8 +19,8 @@ var changeDetected = function(file){
 gulp.task('serve',function(){
   startLiveReloadServer();
 
-  gulp.watch('./test.html',changeDetected);
-  gulp.watch('./src/allUpload.js',changeDetected);
+  gulp.watch('./test.html').on('change',changeDetected);
+  gulp.watch('./src/allUpload.js').on('change',changeDetected);
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', gulp.series('serve'));
