@@ -190,6 +190,7 @@
 
       var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
+      var responseText;
       if(isResponseInQueryString && frameWindow.location.search) {
         responseText = parseQueryString(frameWindow.location.search);
       } else {
