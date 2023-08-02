@@ -15,12 +15,11 @@
     "url": "https://github.com/Juicetan/allupload/issues"
   },
   "homepage": "https://github.com/Juicetan/allupload",
-  "dependencies": {},
   "files": [
     "src/"
   ],
   "devDependencies": {
-    "browser-sync": "^2.18.5",
-    "gulp": "^3.9.1"
+    "browser-sync": "^2.29.3",
+    "gulp": "^4.0.2"
   }
 }
